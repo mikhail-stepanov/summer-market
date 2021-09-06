@@ -1,10 +1,6 @@
-server:
-  port: 0
-
-scheduler:
-  delay: 10000
-
 spring:
+  config:
+    import: optional:configserver:http://localhost:8888
   application:
     name: ms-products
   datasource:
@@ -29,5 +25,5 @@ eureka:
       default-zone: ${EUREKA_URI:http://localhost:8761/eureka}
     fetch-registry: true
 
-jwt:
-  secret: sadfljhasdruywtqkjyfgsjfbagjksfajlsdgfjk
+server:
+  port: 8080

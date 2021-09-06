@@ -1,16 +1,17 @@
 package ru.geekbrains.auth.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import ru.geekbrains.auth.entities.User;
+import ru.geekbrains.auth.repositories.JdbcRepository;
 import ru.geekbrains.auth.services.UserService;
 import ru.geekbrains.core.interfaces.ITokenService;
 import ru.geekbrains.core.models.UserInfo;
@@ -32,6 +33,13 @@ public class AuthController {
     private final ITokenService iTokenService;
 
     private final RedisRepository redisRepository;
+
+    private final JdbcRepository jdbcRepository;
+
+    @GetMapping("/jdbc")
+    public User registerUser(@RequestParam String email) {
+        return jdbcRepository.getByEmail(email).get();
+    }
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)

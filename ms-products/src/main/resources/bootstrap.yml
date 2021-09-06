@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: ms-products
+  cloud:
+    config:
+      uri: http://localhost:8888

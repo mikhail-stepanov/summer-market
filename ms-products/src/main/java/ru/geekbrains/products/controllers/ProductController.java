@@ -3,7 +3,6 @@ package ru.geekbrains.products.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import ru.geekbrains.core.exceptions.ResourceNotFoundException;
-import ru.geekbrains.products.entities.Product;
 import ru.geekbrains.products.entities.ProductDto;
 import ru.geekbrains.products.repositories.specifications.ProductSpecifications;
 import ru.geekbrains.products.services.ProductService;
@@ -29,6 +26,7 @@ import java.util.List;
 @RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
 public class ProductController {
+
     private final ProductService productService;
 
     @GetMapping

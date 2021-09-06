@@ -1,5 +1,6 @@
 package ru.geekbrains.auth.entities;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Column;

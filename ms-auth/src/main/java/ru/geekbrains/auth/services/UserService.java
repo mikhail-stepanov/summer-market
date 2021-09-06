@@ -10,9 +10,10 @@ import ru.geekbrains.auth.repositories.RoleRepository;
 import ru.geekbrains.auth.repositories.UserRepository;
 
 import java.util.Collections;
+import java.util.UUID;
 
 
-@Service
+@Service(value = "UserServiceV1")
 @RequiredArgsConstructor
 public class UserService {
 
@@ -26,6 +27,19 @@ public class UserService {
         Role role = roleRepository.findByName("ROLE_USER");
         user.setRole(Collections.singletonList(role));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
+    }
+
+    public User changePassword(Integer userId, String oldPassword, String newPassword) {
+        User user = userRepository.findById(userId).get();
+        if (user.getPassword().equals(passwordEncoder.encode(oldPassword)))
+            user.setPassword(passwordEncoder.encode(newPassword));
+        return userRepository.save(user);
+    }
+
+    public User restorePassword(String email, String newPassword) {
+        User user = userRepository.findByEmail(email);
+        user.setPassword(passwordEncoder.encode(newPassword));
         return userRepository.save(user);
     }
 
