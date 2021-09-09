@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import ru.geekbrains.orders.services.CartService;
 import ru.geekbrains.orders.services.OrderService;
 import ru.geekbrains.routing.dtos.OrderDto;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,8 +37,8 @@ public class OrderController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public OrderDto createOrderFromCart(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestParam UUID cartUuid, @RequestParam String address) {
-        UserInfo userInfo = tokenService.parseToken(token);
+    public OrderDto createOrderFromCart(@RequestParam UUID cartUuid, @RequestParam String address) {
+        UserInfo userInfo = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         OrderDto orderDto = orderService.createFromUserCart(userInfo.getUserId(), cartUuid, address);
         cartService.clearCart(cartUuid);
         return orderDto;
@@ -48,8 +50,8 @@ public class OrderController {
     }
 
     @GetMapping
-    public List<OrderDto> getCurrentUserOrders(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
-        UserInfo userInfo = tokenService.parseToken(token);
+    public List<OrderDto> getCurrentUserOrders() {
+        UserInfo userInfo = (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return orderService.findAllOrdersByUserId(userInfo.getUserId());
     }
 }

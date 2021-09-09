@@ -41,7 +41,7 @@
 
     function run($rootScope, $http, $localStorage) {
         if ($localStorage.currentUser) {
-            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
+            $http.defaults.headers.common.Authorization = $localStorage.currentUser.token;
         }
 
         $http.post(contextPath + '/api/v1/cart')
@@ -59,12 +59,12 @@ angular.module('app').controller('indexController', function ($scope, $http, $lo
         $http.post(contextPath + '/api/v1/auth/login', $scope.user)
             .then(function successCallback(response) {
                 if (response.data.token) {
-                    $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
-                    $localStorage.currentUser = {login: $scope.user.login, token: response.data.token};
+                    $http.defaults.headers.common.Authorization = response.data.token;
+                    $localStorage.currentUser = {email: $scope.user.email, token: response.data.token};
 
-                    $scope.currentUserName = $scope.user.login;
+                    $scope.currentUserName = $scope.user.email;
 
-                    $scope.user.login = null;
+                    $scope.user.email = null;
                     $scope.user.password = null;
                 }
             }, function errorCallback(response) {
@@ -85,8 +85,8 @@ angular.module('app').controller('indexController', function ($scope, $http, $lo
             });
 
         $location.path('/');
-        if ($scope.user.username) {
-            $scope.user.username = null;
+        if ($scope.user.email) {
+            $scope.user.email = null;
         }
         if ($scope.user.password) {
             $scope.user.password = null;
