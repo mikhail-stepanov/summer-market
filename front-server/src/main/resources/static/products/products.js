@@ -1,5 +1,5 @@
 angular.module('app').controller('productsController', function ($scope, $http, $localStorage) {
-    const contextPath = 'http://localhost:5555';
+    const contextPath = 'http://api.mikhail-stepanov.com:5555';
 
     $scope.showProductsPage = function (pageIndex = 1) {
         $http({

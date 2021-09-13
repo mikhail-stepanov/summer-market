@@ -37,7 +37,7 @@
             });
     }
 
-    const contextPath = 'http://localhost:5555';
+    const contextPath = 'http://api.mikhail-stepanov.com:5555';
 
     function run($rootScope, $http, $localStorage) {
         if ($localStorage.currentUser) {
@@ -52,7 +52,7 @@
 })();
 
 angular.module('app').controller('indexController', function ($scope, $http, $localStorage, $location) {
-    const contextPath = 'http://localhost:5555';
+    const contextPath = 'http://api.mikhail-stepanov.com:5555';
 
     $scope.tryToAuth = function () {
 

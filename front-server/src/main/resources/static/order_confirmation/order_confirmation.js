@@ -1,5 +1,5 @@
 angular.module('app').controller('orderConfirmationController', function ($scope, $http, $location, $localStorage) {
-    const contextPath = 'http://localhost:5555';
+    const contextPath = 'http://api.mikhail-stepanov.com:5555';
 
     $scope.loadCart = function () {
         $http.get(contextPath + '/api/v1/cart/' + $localStorage.happyCartUuid)

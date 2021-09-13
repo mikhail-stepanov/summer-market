@@ -1,5 +1,5 @@
 angular.module('app').controller('orderResultController', function ($scope, $http, $location, $routeParams) {
-    const contextPath = 'http://localhost:5555';
+    const contextPath = 'http://api.mikhail-stepanov.com:5555';
 
     $scope.showOrder = function () {
         $http({
