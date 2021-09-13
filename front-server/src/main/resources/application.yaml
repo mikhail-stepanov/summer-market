@@ -1,2 +1,7 @@
 server:
-  port: 80
+  port: 443
+  ssl:
+    key-store: /etc/letsencrypt/live/mikhail-stepanov.com/keystore.p12
+    key-store-password: geekbrains
+    key-store-type: PKCS12
+    key-alias: geekbrains
